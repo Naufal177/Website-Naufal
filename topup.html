@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fal Store - Top Up Game Termurah & Aman</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- VARIABLE WARNA --- */
+        :root {
+            --accent-pink: #ff3366;
+            --bg-dark-blue: #121225;
+            --bg-light-gray: #f4f6f8;
+            --card-dark: #1e1e36;
+            --card-white: #ffffff;
+            --text-white: #ffffff;
+            --text-gray: #b0b0c0;
+            --text-dark: #333333;
+        }
+
+        /* --- KEYFRAMES ANIMASI --- */
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 51, 102, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 51, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 51, 102, 0); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- RESET & GLOBAL --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light-gray);
+            overflow-x: hidden; 
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h2.section-title {
+            color: var(--text-dark);
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            border-left: 5px solid var(--accent-pink);
+            padding-left: 15px;
+            animation: fadeUp 0.8s ease-out both;
+            animation-delay: 0.2s;
+        }
+
+        /* Tombol Pink */
+        .btn-pink {
+            background-color: var(--accent-pink);
+            color: var(--text-white);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background-color 0.3s, transform 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-pink:hover {
+            background-color: #e62e5c;
+            transform: translateY(-2px);
+        }
+        
+        .hero-section .btn-pink {
+            animation: pulse 2s infinite;
+        }
+
+        /* --- NAVBAR & HERO (Tidak Berubah) --- */
+
+        .navbar {
+            background-color: var(--bg-dark-blue);
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-right-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px; 
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            color: var(--accent-pink);
+            font-weight: 800;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+
+        .logo i { margin-right: 10px; font-size: 1.8rem; }
+
+        .nav-menu { display: flex; gap: 20px; } 
+
+        .nav-menu a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover { color: var(--accent-pink); }
+
+        .menu-toggle {
+            display: none; 
+            color: var(--text-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .sidebar-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 250px;
+            height: 100%;
+            background-color: var(--bg-dark-blue);
+            padding: 60px 20px 20px;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 2000;
+        }
+
+        .sidebar-menu.open {
+            transform: translateX(0);
+        }
+
+        .sidebar-menu a {
+            display: block;
+            color: var(--text-white);
+            text-decoration: none;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 600;
+        }
+        
+        .sidebar-menu .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: var(--text-white);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--bg-dark-blue) 0%, #1a1a3a 100%);
+            padding: 80px 0 120px 0;
+            color: var(--text-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hero-text { 
+            max-width: 55%; 
+            z-index: 2; 
+        }
+
+        .hero-text h1.pink-headline { animation: fadeUp 0.8s ease-out both; animation-delay: 0.1s; }
+        .hero-text h2.white-headline:nth-child(2) { animation: fadeUp 0.8s ease-out both; animation-delay: 0.2s; }
+        .hero-text h2.white-headline:nth-child(3) { animation: fadeUp 0.8s ease-out both; animation-delay: 0.3s; }
+        .hero-text p.sub-headline { animation: fadeUp 0.8s ease-out both; animation-delay: 0.4s; }
+        .hero-text .btn-pink { animation-delay: 0.5s; animation-fill-mode: both; opacity: 0; }
+        
+        .hero-image-container {
+            position: absolute;
+            right: 0;
+            top: 0; 
+            width: 45%; 
+            height: 100%; 
+            z-index: 1;
+        }
+        
+        .hero-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top right;
+            mask-image: linear-gradient(to left, black 60%, transparent 100%); 
+            -webkit-mask-image: linear-gradient(to left, black 60%, transparent 100%);
+        }
+
+        /* --- TRUST BADGES --- */
+        .trust-badges-wrapper { margin-top: 50px; position: relative; max-width: 650px; }
+        .trust-bar-dark { 
+            background-color: rgba(30, 30, 54, 0.9);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* --- CONTENT SECTION --- */
+        .content-section { padding: 60px 0; }
+
+        /* --- GAME GRID --- */
+        .game-grid-6-col {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+        }
+
+        .game-card {
+            background-color: var(--card-dark);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            animation: fadeUp 0.6s ease-out both;
+        }
+        
+        .game-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 20px rgba(255, 51, 102, 0.4);
+        }
+
+        /* CONTAINER GAMBAR */
+        .image-container {
+            height: 200px; /* TINGGI DITINGKATKAN MENJADI 200PX (Langkah 3.2) */
+            width: 100%;
+            overflow: hidden;
+            background-color: var(--card-dark);
+        }
+        
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            /* Fokus diletakkan di tengah agar karakter utama terlihat jelas pada box horizontal */
+            object-position: center; 
+            transition: transform 0.3s ease;
+        }
+        
+        .game-card:hover .image-container img {
+            transform: scale(1.05); /* Efek zoom saat hover */
+        }
+        
+        /* --- Detail Card --- */
+        .game-card-details { padding: 10px; background-color: var(--card-dark); }
+        .game-title-bar h3 {
+            color: var(--text-white);
+            font-size: 0.9rem;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .game-subtitle { color: var(--text-gray); font-size: 0.7rem; margin-top: 4px; }
+
+
+        /* --- METODE PEMBAYARAN (Tidak Berubah) --- */
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 20px;
+        }
+
+        .payment-box {
+            background-color: var(--card-white);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+            height: 120px;
+        }
+
+        .payment-box:hover {
+            box-shadow: 0 5px 15px rgba(255, 51, 102, 0.2);
+            border-color: var(--accent-pink);
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .payment-box img {
+            max-width: 100px; 
+            max-height: 50px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .payment-label {
+            font-size: 0.8rem; 
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* --- RESPONSIF --- */
+        @media (max-width: 1024px) {
+            .game-grid-6-col { grid-template-columns: repeat(4, 1fr); }
+            .hero-text { max-width: 65%; } 
+            .hero-image-container { width: 35%; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            .menu-toggle { display: block; }
+            
+            .hero-content-wrapper { flex-direction: column; }
+            .hero-text { max-width: 100%; text-align: center; }
+            .hero-image-container { display: none; } 
+            .trust-badges-wrapper { margin: 40px auto 0 auto; }
+            
+            .game-grid-6-col { grid-template-columns: repeat(3, 1fr); }
+            
+            .hero-text h1.pink-headline { font-size: 2rem; }
+            .hero-text h2.white-headline { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .game-grid-6-col { grid-template-columns: repeat(2, 1fr); }
+            .payment-grid { grid-template-columns: repeat(2, 1fr); }
+            
+            .nav-right-actions { gap: 10px; }
+            .btn-pink { padding: 8px 15px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <i class="fas fa-bolt"></i> Fal Store
+            </a>
+            <nav class="nav-menu">
+                <a href="#">Beranda</a>
+                <a href="#">Cek Pesanan</a>
+                <a href="#">Daftar Harga</a>
+                <a href="#">Bantuan</a>
+            </nav>
+            <div class="nav-right-actions">
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <a href="#" class="btn-pink">Masuk / Daftar</a>
+            </div>
+        </div>
+    </header>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+        <a href="#" class="close-btn" id="closeBtn">×</a>
+        <a href="#">Beranda</a>
+        <a href="#">Cek Pesanan</a>
+        <a href="#">Daftar Harga</a>
+        <a href="#">Bantuan</a>
+    </div>
+
+    <section class="hero-section">
+        <div class="container hero-content-wrapper">
+            <div class="hero-text">
+                <h1 class="pink-headline">Top Up Murah</h1>
+                <h2 class="white-headline">GAME FAVORIT KAMU</h2>
+                <h2 class="white-headline">AMAN & RESMI 100%</h2>
+                <p class="sub-headline">Proses kilat 1-3 detik, layanan 24 Jam Nonstop. <br>Solusi terbaik untuk kebutuhan gaming Anda.</p>
+                <a href="#games" class="btn-pink" style="padding: 15px 30px; font-size: 1rem;">Mulai Belanja <i class="fas fa-shopping-cart"></i></a>
+
+                <div class="trust-badges-wrapper">
+                    <div class="trust-label-pink">JAMINAN KAMI</div>
+                    <div class="trust-bar-dark">
+                        <div class="trust-item"><i class="fas fa-shield-alt"></i> AMAN 100%</div>
+                        <div class="trust-item"><i class="fas fa-check-circle"></i> LEGAL</div>
+                        <div class="trust-item"><i class="fas fa-clock"></i> PROSES KILAT</div>
+                        <div class="trust-item"><i class="fas fa-headset"></i> CS 24 JAM</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image-container">
+                <img src="https://i.ibb.co/Lh2H295/shooter-man-render.png" alt="Hero Character Game">
+            </div>
+        </div>
+    </section>
+
+    <section id="games" class="content-section">
+        <div class="container">
+            <h2 class="section-title">Pilih Game Favorit</h2>
+            
+            <div class="game-grid-6-col">
+                
+                <div class="game-card">
+                    <div class="image-container">
+                        <img src="ml.png" alt="Mobile Legends Banner">
+                    </div> 
+                    <div class="game-card-details">
+                        <div class="game-title-bar"><h3>Mobile Legends</h3></div>
+                        <p class="game-subtitle">Moonton</p>
+                    </div>
+                </div>
+                 
+                 <div class="game-card">
+                    <div class="image-container">
+                        <img src="https://i.ibb.co/N7B0G7D/pubg-mobile-banner.jpg" alt="PUBG Mobile Banner">
+                    </div>
+                    <div class="game-card-details">
+                        <div class="game-title-bar"><h3>PUBG Mobile</h3></div>
+                        <p class="game-subtitle">Tencent</p>
+                    </div>
+                </div>
+                 
+                 <div class="game-card">
+                    <div class="image-container">
+                        <img src="https://i.ibb.co/b3j62Wz/genshin-impact-banner.jpg" alt="Genshin Impact Banner">
+                    </div>
+                    <div class="game-card-details">
+                        <div class="game-title-bar"><h3>Genshin Impact</h3></div>
+                        <p class="game-subtitle">Hoyoverse</p>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="image-container">
+                        <img src="https://i.ibb.co/5cQG9rQ/free-fire-banner.jpg" alt="Free Fire Banner">
+                    </div>
+                    <div class="game-card-details">
+                        <div class="game-title-bar"><h3>Free Fire</h3></div>
+                        <p class="game-subtitle">Garena</p>
+                    </div>
+                </div>
+                 
+                 <div class="game-card">
+                    <div class="image-container">
+                        <img src="https://i.ibb.co/3s6x29W/valorant-banner.jpg" alt="Valorant Banner">
+                    </div>
+                    <div class="game-card-details">
+                        <div class="game-title-bar"><h3>Valorant</h3></div>
+                        <p class="game-subtitle">Riot Games</p>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="image-container">
+                        <img src="https://i.ibb.co/y484z1b/cod-mobile-banner.jpg" alt="Call of Duty Mobile Banner">
+                    </div>
+                    <div class="game-card-details">
+                        <div class="game-title-bar"><h3>Call of Duty</h3></div>
+                        <p class="game-subtitle">Activision</p>
+                    </div>
+                </div>
+
+                <div class="game-card"><div class="image-container"><img src="https://i.ibb.co/55G018P/game-banner-1.jpg" alt="Higgs Domino Banner"></div><div class="game-card-details"><div class="game-title-bar"><h3>Higgs Domino</h3></div><p class="game-subtitle">Top Up Chip</p></div></div>
+                <div class="game-card"><div class="image-container"><img src="https://i.ibb.co/xM6K6fF/game-banner-2.jpg" alt="Sausage Man Banner"></div><div class="game-card-details"><div class="game-title-bar"><h3>Sausage Man</h3></div><p class="game-subtitle">Top Up Candy</p></div></div>
+                <div class="game-card"><div class="image-container"><img src="https://i.ibb.co/55G018P/game-banner-1.jpg" alt="Point Blank Banner"></div><div class="game-card-details"><div class="game-title-bar"><h3>Point Blank</h3></div><p class="game-subtitle">Zepetto</p></div></div>
+                <div class="game-card"><div class="image-container"><img src="https://i.ibb.co/xM6K6fF/game-banner-2.jpg" alt="Steam Wallet Banner"></div><div class="game-card-details"><div class="game-title-bar"><h3>Steam Wallet</h3></div><p class="game-subtitle">Voucher</p></div></div>
+                <div class="game-card"><div class="image-container"><img src="https://i.ibb.co/55G018P/game-banner-1.jpg" alt="Ragnarok X Banner"></div><div class="game-card-details"><div class="game-title-bar"><h3>Ragnarok X</h3></div><p class="game-subtitle">Diamonds</p></div></div>
+                <div class="game-card"><div class="image-container"><img src="https://i.ibb.co/xM6K6fF/game-banner-2.jpg" alt="Arena of Valor Banner"></div><div class="game-card-details"><div class="game-title-bar"><h3>Arena of Valor</h3></div><p class="game-subtitle">Garena</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section" style="background-color: #eef0f4; border-top: 1px solid #ddd;">
+        <div class="container">
+            <h2 class="section-title">Metode Pembayaran Lengkap</h2>
+            <p style="margin-bottom: 30px; color: #666;">Kami menyediakan berbagai metode pembayaran otomatis untuk memudahkan transaksi Anda.</p>
+
+            <div class="payment-grid">
+                <div class="payment-box">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/QRIS_logo.svg/1200px-QRIS_logo.svg.png" alt="QRIS Logo">
+                    <span class="payment-label">Scan Semua</span>
+                </div>
+                <div class="payment-box">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Logo_dana_blue.svg/2560px-Logo_dana_blue.svg.png" alt="DANA Logo">
+                    <span class="payment-label">E-Wallet</span>
+                </div>
+                <div class="payment-box">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Logo_ovo_purple.svg/2560px-Logo_ovo_purple.svg.png" alt="OVO Logo">
+                    <span class="payment-label">E-Wallet</span>
+                </div>
+                <div class="payment-box">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Gopay_logo.svg/2560px-Gopay_logo.svg.png" alt="GoPay Logo">
+                    <span class="payment-label">E-Wallet</span>
+                </div>
+                <div class="payment-box">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Shopee.svg/2560px-Shopee.svg.png" alt="ShopeePay Logo">
+                    <span class="payment-label">ShopeePay</span>
+                </div>
+                <div class="payment-box">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Bank_Central_Asia.svg/2560px-Bank_Central_Asia.svg.png" alt="BCA Logo">
+                    <span class="payment-label">Transfer Bank</span>
+                </div>
+                <div class="payment-box">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Bank_Mandiri_logo_2016.svg/2560px-Bank_Mandiri_logo_2016.svg.png" alt="Mandiri Logo">
+                    <span class="payment-label">Transfer Bank</span>
+                </div>
+                <div class="payment-box">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Alfamart_logo.svg/2560px-Alfamart_logo.svg.png" alt="Alfamart Logo">
+                    <span class="payment-label">Minimarket</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background-color: var(--bg-dark-blue); color: var(--text-gray); padding: 40px 0; text-align: center; margin-top: 50px;">
+        <div class="container">
+            <h3 style="color: var(--accent-pink); margin-bottom: 15px;">Fal Store</h3>
+            <p style="margin-bottom: 20px;">Website Top Up Game Termurah, Aman, dan Terpercaya di Indonesia.</p>
+            
+            <div style="font-size: 1.5rem; margin-bottom: 20px;">
+                <i class="fab fa-instagram" style="margin: 0 10px; cursor: pointer;"></i>
+                <i class="fab fa-whatsapp" style="margin: 0 10px; cursor: pointer;"></i>
+                <i class="fab fa-tiktok" style="margin: 0 10px; cursor: pointer;"></i>
+            </div>
+            
+            <p style="font-size: 0.8rem;">© 2024 Fal Store. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebarMenu = document.getElementById('sidebarMenu');
+        const closeBtn = document.getElementById('closeBtn');
+
+        menuToggle.addEventListener('click', () => {
+            sidebarMenu.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeBtn.addEventListener('click', () => {
+            sidebarMenu.classList.remove('open');
+            document.body.style.overflow = 'auto';
+        });
+
+        sidebarMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (!link.classList.contains('btn-pink')) { 
+                    sidebarMenu.classList.remove('open');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

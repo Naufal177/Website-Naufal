@@ -1,0 +1,63 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  margin:0; padding:0;
+  background:#fdfdfd; color:#333;
+  scroll-behavior:smooth;
+}
+
+/* NAVBAR ala Dropbox */
+.navbar {
+  position:fixed; top:0; left:0; width:100%;
+  background:white; box-shadow:0 2px 5px rgba(0,0,0,0.1);
+  display:flex; justify-content:space-between; align-items:center;
+  padding:10px 20px; z-index:1000;
+}
+.navbar .logo {font-weight:bold; font-size:1.2em; color:#0061ff;}
+.navbar ul {list-style:none; display:flex; margin:0; padding:0;}
+.navbar ul li {margin:0 15px;}
+.navbar ul li a {text-decoration:none; color:#333; font-weight:500; transition:0.3s;}
+.navbar ul li a:hover {color:#0061ff;}
+.navbar .cta {
+  background:#0061ff; color:white; padding:8px 18px;
+  border-radius:20px; text-decoration:none; font-weight:600;
+  transition:0.3s;
+}
+.navbar .cta:hover {background:#004ecc;}
+
+.hamburger {display:none; flex-direction:column; cursor:pointer;}
+.hamburger div {width:25px; height:3px; background:#333; margin:4px 0; transition:0.4s;}
+@media (max-width:768px){
+  .navbar ul {
+    display:none; flex-direction:column; background:white;
+    position:absolute; top:60px; right:20px; width:200px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  }
+  .navbar ul.active {display:flex;}
+  .hamburger {display:flex;}
+}
+
+/* HEADER */
+header {
+  background:url('https://picsum.photos/1200/600?random=11') center/cover no-repeat;
+  color:white; text-align:center; padding:120px 15px; margin-top:60px;
+}
+header h1 {margin:0; font-size:2.2em; text-shadow:2px 2px 5px rgba(0,0,0,0.6);}
+header p {font-size:1.1em; text-shadow:1px 1px 3px rgba(0,0,0,0.6);}
+.cta-btn a {
+  background:#ff6f61; color:white; padding:12px 25px;
+  text-decoration:none; border-radius:25px; transition:0.4s;
+  display:inline-block; margin-top:20px;
+}
+.cta-btn a:hover {background:#ff856f; transform:scale(1.05);}
+
+/* Section */
+section {
+  padding:40px 15px; text-align:center;
+  opacity:0; transform:translateY(40px);
+  transition:all 0.8s ease-out;
+}
+section.reveal {opacity:1; transform:translateY(0);}
+section img {max-width:100%; height:auto; border-radius:12px; margin:10px 0;}
+
+/* Footer */
+footer {background:#222; color:white; text-align:center; padding:15px;}

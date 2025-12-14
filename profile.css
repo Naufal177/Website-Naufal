@@ -1,0 +1,137 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  margin:0; padding:0;
+  /* Background jelas sesuai isi profil: workspace developer */
+  background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+  min-height:100vh;
+  display:flex; justify-content:center; align-items:center;
+  position:relative;
+}
+
+/* Overlay gelap */
+body::before {
+  content:"";
+  position:fixed;
+  top:0; left:0; right:0; bottom:0;
+  background:rgba(0,0,0,0.4);
+  z-index:-1;
+}
+
+/* Tombol Home */
+.home-btn {
+  position:absolute;
+  top:15px;
+  left:15px;
+  width:42px;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.2);
+  border-radius:50%;
+  backdrop-filter: blur(4px);
+  text-decoration:none;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+  transition: background 0.3s ease;
+  z-index:10;
+  opacity:0;
+  transform:scale(0.8);
+  animation:fadeZoom 0.8s ease-out forwards;
+}
+.home-btn img {
+  width:22px;
+  height:22px;
+  filter: invert(1); /* jadi putih */
+}
+.home-btn:hover {
+  background:rgba(255,255,255,0.35);
+}
+
+/* Container */
+.container {
+  background: rgba(255,255,255,0.2);
+  padding:30px;
+  border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.25);
+  backdrop-filter: blur(10px);
+  max-width:800px;
+  width:90%;
+  color:#fff;
+}
+
+/* Header */
+header {
+  text-align:center;
+  margin-bottom:30px;
+}
+.avatar {
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  margin-bottom:15px;
+  box-shadow:0 6px 15px rgba(0,0,0,0.25);
+  animation:zoomIn 1s ease-out;
+}
+header h1 {
+  font-size:2em;
+  font-weight:bold;
+  color:#fff;
+  animation:fadeSlideDown 1s ease-out forwards;
+}
+header p {
+  animation:fadeSlideUp 1.2s ease-out forwards;
+}
+
+/* Section umum */
+section {
+  margin-bottom:25px;
+  opacity:0;
+  transform:translateY(30px);
+  animation:fadeUp 1s ease-out forwards;
+}
+section:nth-of-type(1) {animation-delay:0.3s;}
+section:nth-of-type(2) {animation-delay:0.6s;}
+section:nth-of-type(3) {animation-delay:0.9s;}
+section:nth-of-type(4) {animation-delay:1.2s;}
+
+section h2 {
+  color:#00c6ff;
+  margin-bottom:10px;
+  font-size:1.4em;
+  text-align:center;
+}
+section p, section li {
+  color:#eee;
+  line-height:1.6;
+  text-align:center;
+}
+
+/* Footer */
+footer {
+  text-align:center;
+  margin-top:20px;
+  font-size:0.9em;
+  color:#ddd;
+}
+
+/* Animasi */
+@keyframes fadeSlideDown {
+  from {opacity:0; transform:translateY(-20px);}
+  to {opacity:1; transform:translateY(0);}
+}
+@keyframes fadeSlideUp {
+  from {opacity:0; transform:translateY(20px);}
+  to {opacity:1; transform:translateY(0);}
+}
+@keyframes fadeUp {
+  from {opacity:0; transform:translateY(30px);}
+  to {opacity:1; transform:translateY(0);}
+}
+@keyframes zoomIn {
+  from {opacity:0; transform:scale(0.8);}
+  to {opacity:1; transform:scale(1);}
+}
+@keyframes fadeZoom {
+  from {opacity:0; transform:scale(0.8);}
+  to {opacity:1; transform:scale(1);}
+}

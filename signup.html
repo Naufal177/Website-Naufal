@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up / Login</title>
+  <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+  <!-- Ikon Home -->
+  <a href="index.html" class="home-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="#ffffff" viewBox="0 0 24 24">
+      <path d="M12 3l9 8h-3v9h-12v-9h-3l9-8z"/>
+    </svg>
+  </a>
+
+  <!-- Form Login -->
+  <section id="signup">
+    <h2>Daftar / Login</h2>
+    <p>Pilih akun sosial media untuk masuk:</p>
+    <div class="social-container">
+      <a href="#" onclick="showProfile('Naufal Randika','sha1112233z@gmail.com')" class="social-btn fb fade-in">
+        Facebook
+      </a>
+      <a href="#" onclick="showProfile('Naufal Randika','sha1112233z@gmail.com')" class="social-btn google fade-in delay1">
+        Google
+      </a>
+      <a href="#" onclick="showProfile('Naufal Randika','sha1112233z@gmail.com')" class="social-btn twitter fade-in delay2">
+        Twitter
+      </a>
+    </div>
+  </section>
+
+  <!-- Tampilan Profil -->
+  <section id="profile" class="hidden">
+    <div class="profile-card">
+      <img src="https://picsum.photos/120" alt="Foto Profil" class="profile-img" id="profile-img">
+      <h2 id="profile-name">Nama Pengguna</h2>
+      <input type="file" id="upload-img" accept="image/*" style="display:none;">
+      <button onclick="document.getElementById('upload-img').click()">Ubah Foto</button>
+
+      <!-- Informasi pribadi -->
+      <div class="info">
+        <p>Email: <input type="text" readonly></p>
+        <p>Password: <input type="password" value="password123" readonly id="password-field"></p>
+        <button onclick="togglePassword()">👁 Lihat/Sembunyikan</button>
+        <br><br>
+        <label for="new-pass">Ganti Password:</label>
+        <input type="password" id="new-pass" placeholder="Password baru">
+        <button onclick="changePassword()">Simpan Password</button>
+        <hr>
+        <p>Nama Lengkap: <span id="full-name">Naufal Randika</span></p>
+        <p>Tanggal Lahir: <span id="birth-date">01 Januari 2000</span></p>
+        <p>No. Telepon: <span id="phone">0812-3456-7890</span></p>
+      </div>
+
+      <button class="logout-btn">Logout</button>
+    </div>
+  </section>
+
+  <script>
+    function showProfile(name, email) {
+      document.getElementById("signup").classList.add("fadeOut");
+      setTimeout(() => {
+        document.getElementById("signup").style.display = "none";
+        document.getElementById("profile").classList.remove("hidden");
+        document.getElementById("profile-name").textContent = name;
+        document.querySelector("#profile .info input[type=text]").value = email;
+      }, 600);
+    }
+
+    document.querySelector(".logout-btn").addEventListener("click", () => {
+      document.getElementById("profile").classList.add("fadeOut");
+      setTimeout(() => {
+        document.getElementById("profile").classList.add("hidden");
+        document.getElementById("signup").style.display = "block";
+        document.getElementById("signup").classList.remove("fadeOut");
+      }, 600);
+    });
+
+    document.getElementById("upload-img").addEventListener("change", function(e){
+      const file = e.target.files[0];
+      if(file){
+        const reader = new FileReader();
+        reader.onload = function(ev){
+          document.getElementById("profile-img").src = ev.target.result;
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+
+    function togglePassword(){
+      const field = document.getElementById("password-field");
+      field.type = field.type === "password" ? "text" : "password";
+    }
+
+    function changePassword(){
+      const newPass = document.getElementById("new-pass").value;
+      if(newPass.trim() !== ""){
+        document.getElementById("password-field").value = newPass;
+        alert("Password berhasil diubah!");
+        document.getElementById("new-pass").value = "";
+      } else {
+        alert("Password baru tidak boleh kosong!");
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  margin:0; padding:0;
+  background: url('https://picsum.photos/1920/1080?random') center/cover no-repeat;
+  min-height:100vh;
+  display:flex; justify-content:center; align-items:center;
+  position:relative;
+}
+
+/* Overlay gelap */
+body::before {
+  content:"";
+  position:fixed;
+  top:0; left:0; right:0; bottom:0;
+  background:rgba(0,0,0,0.4);
+  z-index:-1;
+}
+
+/* Tombol Home */
+.home-icon {
+  position:absolute;
+  top:15px;
+  left:15px;
+  width:36px;
+  height:36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.2);
+  border-radius:50%;
+  backdrop-filter: blur(4px);
+  text-decoration:none;
+}
+.home-icon svg {
+  width:20px;
+  height:20px;
+}
+.home-icon:hover {
+  background:rgba(255,255,255,0.35);
+}
+
+/* Form Login */
+#signup {
+  background: rgba(255,255,255,0.2);
+  padding:30px;
+  border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.25);
+  text-align:center;
+  max-width:320px;
+  width:90%;
+  backdrop-filter: blur(8px);
+  animation:fadeIn 0.8s ease-out forwards;
+}
+#signup h2 {
+  margin-bottom:10px;
+  color:#fff;
+  font-size:1.5em;
+}
+#signup p {
+  margin-bottom:25px;
+  color:#eee;
+  font-size:0.95em;
+}
+.social-container {
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+.social-btn {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  color:white;
+  padding:12px;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:600;
+  opacity:0;
+  transform:translateY(20px);
+  animation:fadeSlide 0.6s ease-out forwards;
+}
+.fb {background:#3b5998;}
+.google {background:#db4437;}
+.twitter {background:#1da1f2;}
+.delay1 {animation-delay:0.2s;}
+.delay2 {animation-delay:0.4s;}
+@keyframes fadeSlide {
+  0% {opacity:0; transform:translateY(20px);}
+  100% {opacity:1; transform:translateY(0);}
+}
+
+/* Profil */
+.hidden { display:none; }
+.profile-card {
+  background: rgba(255,255,255,0.15);
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);
+  backdrop-filter: blur(6px);
+  text-align:center;
+  color:#fff;
+  max-width:320px;
+  margin:20px auto;
+  animation:fadeIn 0.8s ease-out forwards;
+}
+.profile-img {
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  margin-bottom:10px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
+.info input {
+  background:transparent;
+  border:none;
+  color:#fff;
+  font-size:0.9em;
+  width:200px;
+}
+.logout-btn {
+  margin-top:15px;
+  padding:8px 16px;
+  border:none;
+  border-radius:6px;
+  background:#ff4d4d;
+  color:#fff;
+  cursor:pointer;
+  transition:background 0.3s ease;
+}
+.logout-btn:hover {
+  background:#ff1a1a;
+}
+
+/* Animasi fade in/out untuk transisi antar section */
+@keyframes fadeIn {
+  from {opacity:0; transform:scale(0.95);}
+  to {opacity:1; transform:scale(1);}
+}
+
+@keyframes fadeOut {
+  from {opacity:1; transform:scale(1);}
+  to {opacity:0; transform:scale(0.95);}
+}
+
+/* Class tambahan untuk transisi */
+.fadeOut {
+  animation:fadeOut 0.6s ease forwards;
+}
+
+/* Tombol umum */
+button {
+  margin-top:10px;
+  padding:8px 14px;
+  border:none;
+  border-radius:6px;
+  background:#00c6ff;
+  color:#fff;
+  cursor:pointer;
+  transition:background 0.3s ease, transform 0.2s ease;
+}
+button:hover {
+  background:#0099cc;
+  transform:translateY(-2px);
+}
+
+/* Input password baru */
+#new-pass {
+  margin-top:8px;
+  padding:6px;
+  border-radius:6px;
+  border:none;
+  outline:none;
+  background:rgba(255,255,255,0.2);
+  color:#fff;
+  width:200px;
+  text-align:center;
+}
+
+/* Label informasi pribadi */
+.info p {
+  margin:8px 0;
+  font-size:0.9em;
+  color:#eee;
+}
+.info span {
+  font-weight:600;
+  color:#fff;
+}

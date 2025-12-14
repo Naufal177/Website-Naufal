@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Page Mobile Animasi</title>
+  <!-- Panggil file CSS eksternal -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- NAVBAR ala Dropbox -->
+  <nav class="navbar">
+    <div class="logo">Naufal</div>
+    <ul id="menu">
+      <li><a href="#home">Home</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="#fitur">Fitur</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#testimoni">Testimoni</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#kontak">Kontak</a></li>
+    </ul>
+    <a href="signup.html" class="cta">Sign Up</a>
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div><div></div><div></div>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header id="home">
+    <h1>Website Estetis & Modern</h1>
+    <p>Buat bisnis Anda tampil profesional dengan desain elegan</p>
+    <div class="cta-btn"><a href="signup.html">Mulai Sekarang</a></div>
+  </header>
+
+  <!-- Section Profile -->
+  <section id="profile">
+    <h2>Tentang Kami</h2>
+    <img src="https://picsum.photos/300/200?random=1" alt="Team">
+    <p>Kami adalah tim kreatif yang fokus membuat website modern untuk UMKM dan bisnis digital.</p>
+  </section>
+
+  <!-- Section Fitur -->
+  <section id="fitur">
+    <h2>Fitur Unggulan</h2>
+    <img src="https://picsum.photos/400/200?random=2" alt="Fitur">
+    <p>⚡ Cepat & Responsif | 🔒 Aman | 📱 Mobile Friendly | 💬 Support 24/7</p>
+  </section>
+
+  <!-- Section Pricing -->
+  <section id="pricing">
+    <h2>Paket Harga</h2>
+    <img src="https://picsum.photos/400/200?random=8" alt="Pricing Illustration">
+    <p>Basic, Pro, Premium sesuai kebutuhan Anda.</p>
+  </section>
+
+  <!-- Section Testimoni -->
+  <section id="testimoni">
+    <h2>Apa Kata Mereka</h2>
+    <img src="https://picsum.photos/100?random=6" alt="Customer" style="border-radius:50%;">
+    <p>"Website ini membantu bisnis saya naik 3x lipat!" – Andi</p>
+  </section>
+
+  <!-- Section FAQ -->
+  <section id="faq">
+    <h2>FAQ</h2>
+    <img src="https://picsum.photos/200/100?random=9" alt="FAQ Illustration">
+    <p><b>Apakah ada trial?</b> Ya, 7 hari gratis.</p>
+  </section>
+
+  <!-- Section Kontak -->
+  <section id="kontak">
+    <h2>Hubungi Kami</h2>
+    <img src="https://picsum.photos/80?random=7" alt="Contact Icon">
+    <p>Email: <a href="mailto:naufalrandika4@gmail.com">naufalrandika4@gmail.com</a> | WA: 0858-6077-9461</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Perusahaan Naufal. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function toggleMenu(){
+      document.getElementById("menu").classList.toggle("active");
+    }
+    const sections = document.querySelectorAll("section");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add("reveal");
+        }
+      });
+    }, {threshold:0.2});
+    sections.forEach(sec => observer.observe(sec));
+  </script>
+</body>
+</html>
