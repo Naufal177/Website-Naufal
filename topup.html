@@ -212,9 +212,9 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: top right;
-            mask-image: linear-gradient(to left, black 60%, transparent 100%); 
-            -webkit-mask-image: linear-gradient(to left, black 60%, transparent 100%);
+            object-position: right;
+            mask-image: linear-gradient(to left, black 50%, transparent 100%); 
+            -webkit-mask-image: linear-gradient(to left, black 50%, transparent 100%);
         }
 
         /* --- TRUST BADGES --- */
@@ -255,7 +255,7 @@
 
         /* CONTAINER GAMBAR */
         .image-container {
-            height: 200px; /* TINGGI DITINGKATKAN MENJADI 200PX (Langkah 3.2) */
+            height: 200px; 
             width: 100%;
             overflow: hidden;
             background-color: var(--card-dark);
@@ -265,7 +265,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover; 
-            /* Fokus diletakkan di tengah agar karakter utama terlihat jelas pada box horizontal */
             object-position: center; 
             transition: transform 0.3s ease;
         }
@@ -498,7 +497,7 @@
 
             <div class="payment-grid">
                 <div class="payment-box">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/QRIS_logo.svg/1200px-QRIS_logo.svg.png" alt="QRIS Logo">
+                    <img src="qr.png" alt="QRIS Logo">
                     <span class="payment-label">Scan Semua</span>
                 </div>
                 <div class="payment-box">
@@ -574,3 +573,4 @@
     </script>
 </body>
 </html>
+
