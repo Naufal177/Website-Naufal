@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembayaran DANA - Fal Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --accent-pink: #ff3366;
+            --bg-light-gray: #f4f6f8;
+            --card-white: #ffffff;
+            --text-dark: #333333;
+            --dana-blue: #1085E1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg-light-gray); padding: 20px; }
+
+        .payment-container {
+            max-width: 500px;
+            margin: 30px auto;
+            background-color: var(--card-white);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            text-align: center;
+        }
+
+        .header { border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
+        .header img { max-width: 120px; }
+
+        /* Timer */
+        .timer-box {
+            background-color: #fff5f5;
+            color: var(--accent-pink);
+            border: 2px solid var(--accent-pink);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 15px 0;
+        }
+
+        .order-detail { text-align: left; background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        .order-detail p { font-size: 0.9rem; margin: 8px 0; border-bottom: 1px dashed #ddd; padding-bottom: 5px; }
+        .order-detail strong { float: right; color: var(--text-dark); }
+
+        .total-price {
+            background-color: #eef9ff;
+            color: var(--dana-blue);
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        /* --- TOMBOL DANA --- */
+        .btn-dana {
+            background-color: var(--dana-blue);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: transform 0.2s, background-color 0.3s;
+            margin-bottom: 15px;
+        }
+
+        .btn-dana:hover { background-color: #0d6db9; transform: scale(1.02); }
+
+        .btn-cancel {
+            background-color: transparent;
+            color: #888;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="payment-container">
+        <div class="header">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Logo_dana_blue.svg/2560px-Logo_dana_blue.svg.png" alt="DANA">
+            <p style="font-size: 0.8rem; color: #666; margin-top: 5px;">Selesaikan pembayaran sebelum waktu habis</p>
+        </div>
+
+        <div class="timer-box">
+            <i class="fas fa-clock"></i> <span id="countdown">10:00</span>
+        </div>
+
+        <div class="order-detail">
+            <p>ID Pesanan: <strong id="orderId">...</strong></p>
+            <p>User ID: <strong id="userId">...</strong></p>
+            <p>Produk: <strong id="product">... Diamond</strong></p>
+        </div>
+
+        <div class="total-price" id="totalPrice">Rp 0</div>
+
+        <a href="https://link.dana.id/pay" id="danaLink" class="btn-dana">
+            <i class="fas fa-wallet"></i> BAYAR VIA APLIKASI DANA
+        </a>
+
+        <p style="font-size: 0.75rem; color: #999; margin-bottom: 15px;">
+            *Klik tombol di atas untuk membuka aplikasi DANA secara otomatis.
+        </p>
+
+        <button id="cancelButton" class="btn-cancel">Batalkan Pembayaran</button>
+    </div>
+
+    <script>
+        const TIMER_MINUTES = 10;
+        let timerInterval;
+
+        function initPayment() {
+            const dataRaw = localStorage.getItem('currentOrder');
+            if (!dataRaw) {
+                window.location.href = 'ml-topup.html';
+                return;
+            }
+
+            const data = JSON.parse(dataRaw);
+            document.getElementById('orderId').textContent = data.orderId;
+            document.getElementById('userId').textContent = data.userId;
+            document.getElementById('product').textContent = data.diamond + " Diamond";
+            document.getElementById('totalPrice').textContent = "Rp " + data.price.toLocaleString('id-ID');
+
+            // Opsional: Custom link DANA jika Anda punya nomor tujuan bisnis
+            // const danaNomor = "08123456789"; 
+            // document.getElementById('danaLink').href = `https://link.dana.id/qr/....`;
+
+            startTimer(TIMER_MINUTES * 60);
+        }
+
+        function startTimer(duration) {
+            let timer = duration, minutes, seconds;
+            const display = document.getElementById('countdown');
+
+            timerInterval = setInterval(() => {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(timerInterval);
+                    alert("Waktu Habis! Pesanan Anda telah dibatalkan otomatis.");
+                    cancelOrder();
+                }
+            }, 1000);
+        }
+
+        function cancelOrder() {
+            localStorage.removeItem('currentOrder');
+            window.location.href = 'ml-topup.html';
+        }
+
+        document.getElementById('cancelButton').addEventListener('click', () => {
+            if(confirm("Batalkan pesanan ini?")) cancelOrder();
+        });
+
+        window.onload = initPayment;
+    </script>
+</body>
+</html>

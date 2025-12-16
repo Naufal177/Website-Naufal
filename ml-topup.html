@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Up Mobile Legends - Fal Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- VARIABLE WARNA --- */
+        :root {
+            --accent-pink: #ff3366;
+            --bg-dark-blue: #121225;
+            --bg-light-gray: #f4f6f8;
+            --card-white: #ffffff;
+            --text-white: #ffffff;
+            --text-gray: #b0b0c0;
+            --text-dark: #333333;
+        }
+
+        /* --- RESET & GLOBAL --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light-gray);
+            overflow-x: hidden; 
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px; 
+        }
+        
+        h2.section-title {
+            color: var(--text-dark);
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            border-left: 5px solid var(--accent-pink);
+            padding-left: 15px;
+        }
+
+        /* --- NAVBAR & HEADER --- */
+        .navbar {
+            background-color: var(--bg-dark-blue);
+            padding: 15px 0;
+            position: relative; 
+            z-index: 1000; 
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+        }
+        
+        .logo { 
+            color: var(--accent-pink); 
+            font-weight: 800; 
+            font-size: 1.5rem; 
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+        }
+        
+        .nav-menu { 
+            display: flex; 
+            gap: 20px; 
+        } 
+
+        .nav-menu a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        
+        .menu-toggle {
+            display: none; 
+            color: var(--text-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* --- SIDEBAR MENU --- */
+        .sidebar-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 250px;
+            height: 100%;
+            background-color: var(--bg-dark-blue);
+            padding: 60px 20px 20px;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 2000;
+        }
+        
+        .sidebar-menu.open {
+            transform: translateX(0);
+        }
+        
+        .sidebar-menu a {
+            display: block;
+            color: var(--text-white);
+            text-decoration: none;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 600;
+        }
+
+        .sidebar-menu .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: var(--text-white);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* --- CONTENT SECTION & LAYOUT --- */
+        .content-section { padding: 60px 0; }
+        
+        .main-content-wrapper {
+            max-width: 650px; 
+            margin: 0 auto;
+            padding: 0 10px; 
+        }
+        
+        .product-card {
+            background-color: var(--card-white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            text-align: center;
+            margin-bottom: 25px; 
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        /* FORM & STEPS */
+        .checkout-form {
+            background-color: var(--card-white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            overflow: hidden; 
+        }
+
+        .step-section {
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            box-sizing: border-box; 
+        }
+        
+        /* Pilihan Diamond & Pembayaran FIX */
+        .nominal-grid, .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+        }
+
+        .nominal-item, .payment-item {
+            border: 2px solid #ddd; 
+            border-radius: 6px;
+            padding: 15px 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            background-color: #f9f9f9; 
+            min-height: 55px; 
+            display: flex; 
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .nominal-item.selected, .payment-item.selected {
+            border-color: var(--accent-pink);
+            background-color: var(--accent-pink);
+            color: var(--text-white);
+            box-shadow: 0 0 5px rgba(255, 51, 102, 0.5);
+        }
+        
+        .nominal-item.selected .price-label, .payment-item.selected .price-label {
+            color: var(--text-white); 
+        }
+
+        .price-label {
+            display: block;
+            font-size: 0.75rem;
+            color: #555; 
+            margin-top: 5px;
+        }
+        
+        .btn-pink {
+            background-color: var(--accent-pink);
+            color: var(--text-white);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background-color 0.3s, transform 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        /* --- RESPONSIF KHUSUS MOBILE --- */
+        @media (max-width: 768px) {
+            
+            .nav-menu { display: none; }
+            .menu-toggle { display: block; }
+            .navbar .container { padding: 0 15px; }
+            
+            .container { padding: 0; }
+            
+            .main-content-wrapper {
+                max-width: 100%;
+                margin: 0;
+                padding: 0 15px; 
+            }
+
+            h2.section-title { 
+                font-size: 1.5rem; 
+                padding-left: 15px;
+                margin-left: 0; 
+            }
+            
+            .product-card {
+                margin: 0 0 25px 0; 
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+            
+            .product-card img { height: 150px; }
+
+            .checkout-form {
+                background-color: transparent;
+                padding: 0; 
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .step-section { 
+                background-color: var(--card-white);
+                box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+                border: none; 
+                padding: 15px; 
+                margin-bottom: 20px;
+            }
+            
+            .nominal-grid { 
+                grid-template-columns: repeat(3, 1fr); 
+                gap: 8px; 
+            }
+            
+            .nominal-item, .payment-item { padding: 10px 3px; }
+            
+            .total-info-wrapper { padding: 0 15px; }
+            
+            .btn-pink { width: 100%; }
+
+        }
+
+        @media (max-width: 480px) {
+            .nominal-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <a href="topup.html" class="logo">
+                <i class="fas fa-bolt"></i> Fal Store
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="topup.html">Beranda</a>
+                <a href="#">Cek Pesanan</a>
+                <a href="#">Daftar Harga</a>
+                <a href="#">Bantuan</a>
+            </nav>
+            
+            <div class="nav-right-actions">
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+        <a href="#" class="close-btn" id="closeBtn">×</a>
+        <a href="topup.html">Beranda</a>
+        <a href="#">Cek Pesanan</a>
+        <a href="#">Daftar Harga</a>
+        <a href="#">Bantuan</a>
+    </div>
+
+    <section class="content-section" style="padding-top: 40px; min-height: 80vh;">
+        <div class="container">
+            <h2 class="section-title">Top Up Mobile Legends (MLBB)</h2>
+            
+            <div class="main-content-wrapper">
+                
+                <div class="product-card">
+                    <img src="ml.jpg" alt="Mobile Legends Banner">
+                    <div class="product-info">
+                        <h3>Mobile Legends: Bang Bang</h3>
+                        <p>Top up Diamond MLBB resmi dan instan. Hanya butuh User ID dan Zone ID!</p>
+                    </div>
+                </div>
+
+                <div class="checkout-form">
+                    <form id="checkoutForm">
+                        
+                        <div class="step-section">
+                            <div class="step-header"><i class="fas fa-user"></i> 1. Masukkan ID Akun</div>
+                            <div class="input-group">
+                                <label for="userId">User ID & Zone ID (Contoh: 12345678(2022))</label>
+                                <input type="text" id="userId" placeholder="Masukkan User ID (8 digit) & Zone ID (4 digit)" required>
+                                <span class="hint"><i class="fas fa-info-circle"></i> Pastikan ID benar, kesalahan input ID menjadi tanggung jawab pembeli.</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="contact">Nomor WhatsApp (Untuk Notifikasi)</label>
+                                <input type="tel" id="contact" placeholder="Contoh: 081234567890" required>
+                            </div>
+                        </div>
+
+                        <div class="step-section">
+                            <div class="step-header"><i class="fas fa-gem"></i> 2. Pilih Nominal Diamond</div>
+                            <div class="nominal-grid" id="nominalOptions">
+                                <div class="nominal-item" data-price="3500" data-dm="10">10 DM <span class="price-label">Rp 3.500</span></div>
+                                <div class="nominal-item" data-price="10000" data-dm="28">28 DM <span class="price-label">Rp 10.000</span></div>
+                                <div class="nominal-item" data-price="17000" data-dm="56">56 DM <span class="price-label">Rp 17.000</span></div>
+                                <div class="nominal-item" data-price="34000" data-dm="112">112 DM <span class="price-label">Rp 34.000</span></div>
+                                <div class="nominal-item" data-price="68000" data-dm="224">224 DM <span class="price-label">Rp 68.000</span></div>
+                                <div class="nominal-item" data-price="136000" data-dm="448">448 DM <span class="price-label">Rp 136.000</span></div>
+                            </div>
+                        </div>
+
+                        <div class="step-section">
+                            <div class="step-header"><i class="fas fa-wallet"></i> 3. Pilih Pembayaran</div>
+                            <div class="payment-options" id="paymentOptions">
+                                
+                                <div class="payment-item" data-method="dana" data-label="DANA">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Logo_dana_blue.svg/2560px-Logo_dana_blue.svg.png" style="width: 50px; height: 18px; object-fit: contain;">
+                                    <span style="font-size: 0.7rem; display: block; margin-top: 5px;">DANA</span>
+                                </div>
+
+                                <div class="payment-item" data-method="ovo" data-label="OVO">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Logo_ovo_purple.svg/2560px-Logo_ovo_purple.svg.png" style="width: 50px; height: 18px; object-fit: contain;">
+                                    <span style="font-size: 0.7rem; display: block; margin-top: 5px;">OVO</span>
+                                </div>
+                                
+                                <div class="payment-item" data-method="gopay" data-label="GOPAY">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Gopay_logo.svg/2560px-Gopay_logo.svg.png" style="width: 50px; height: 18px; object-fit: contain;">
+                                    <span style="font-size: 0.7rem; display: block; margin-top: 5px;">GOPAY</span>
+                                </div>
+
+                                <div class="payment-item" data-method="qris" data-label="QRIS">
+                                    <img src="qr.png" alt="QRIS" style="width: 50px; height: 18px; object-fit: contain;">
+                                    <span style="font-size: 0.7rem; display: block; margin-top: 5px;">QRIS</span>
+                                </div>
+                                
+                                <div class="payment-item" data-method="seabank" data-label="Seabank">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/SeaBank_logo.svg/1200px-SeaBank_logo.svg.png" style="width: 50px; height: 18px; object-fit: contain;">
+                                    <span style="font-size: 0.7rem; display: block; margin-top: 5px;">Seabank</span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="total-info-wrapper">
+                            <div style="text-align: right; margin-top: 20px; font-size: 1.2rem;">
+                                Total Bayar: <span id="totalPrice" style="color: var(--accent-pink); font-weight: 800;">Rp 0</span>
+                            </div>
+
+                            <button type="submit" class="btn-pink" style="width: 100%; padding: 15px; margin-top: 20px;">
+                                Beli Sekarang <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer style="background-color: var(--bg-dark-blue); color: var(--text-gray); padding: 40px 0; text-align: center; margin-top: 50px;">
+        <div class="container">
+            <h3 style="color: var(--accent-pink); margin-bottom: 15px;">Fal Store</h3>
+            <p style="margin-bottom: 20px;">Website Top Up Game Termurah, Aman, dan Terpercaya di Indonesia.</p>
+            <div style="font-size: 1.5rem; margin-bottom: 20px;">
+                <i class="fab fa-instagram" style="margin: 0 10px; cursor: pointer;"></i>
+                <i class="fab fa-whatsapp" style="margin: 0 10px; cursor: pointer;"></i>
+                <i class="fab fa-tiktok" style="margin: 0 10px; cursor: pointer;"></i>
+            </div>
+            <p style="font-size: 0.8rem;">© 2025 Fal Store. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Navigasi Sidebar 
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebarMenu = document.getElementById('sidebarMenu');
+        const closeBtn = document.getElementById('closeBtn');
+
+        if (menuToggle && sidebarMenu && closeBtn) {
+            menuToggle.addEventListener('click', () => {
+                sidebarMenu.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+
+            closeBtn.addEventListener('click', () => {
+                sidebarMenu.classList.remove('open');
+                document.body.style.overflow = 'auto';
+            });
+        }
+        
+        // --- LOGIKA CHECKOUT MLBB ---
+        let selectedNominalPrice = 0;
+        let selectedNominalDM = 0;
+        
+        const nominalItems = document.querySelectorAll('#nominalOptions .nominal-item');
+        const paymentItems = document.querySelectorAll('#paymentOptions .payment-item');
+        const totalPriceElement = document.getElementById('totalPrice');
+        const checkoutForm = document.getElementById('checkoutForm');
+
+        function formatRupiah(number) {
+            if (isNaN(number)) return 'Rp 0';
+            return 'Rp ' + number.toLocaleString('id-ID');
+        }
+
+        // 1. Logika Pilih Nominal Diamond
+        nominalItems.forEach(item => {
+            item.addEventListener('click', () => {
+                nominalItems.forEach(n => n.classList.remove('selected'));
+                item.classList.add('selected');
+                selectedNominalPrice = parseInt(item.getAttribute('data-price')) || 0;
+                selectedNominalDM = parseInt(item.getAttribute('data-dm')) || 0;
+                totalPriceElement.textContent = formatRupiah(selectedNominalPrice);
+            });
+        });
+
+        // 2. Logika Pilih Metode Pembayaran
+        paymentItems.forEach(item => {
+            item.addEventListener('click', () => {
+                paymentItems.forEach(p => p.classList.remove('selected'));
+                item.classList.add('selected');
+            });
+        });
+
+        // 3. Proses Form Checkout (Submit) - BAGIAN KRITIS REDIRECT
+        checkoutForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Mencegah form submit default & reload
+
+            // Mendapatkan Nilai Input dan membersihkan spasi
+            const userId = document.getElementById('userId').value.trim();
+            const contact = document.getElementById('contact').value.trim();
+            
+            // Mendapatkan Pilihan Pembayaran yang terpilih
+            const selectedPaymentElement = document.querySelector('#paymentOptions .payment-item.selected');
+            
+            // --- VALIDASI A: Cek Pilihan & Input ---
+            if (selectedNominalPrice === 0 || selectedNominalDM === 0) {
+                alert('Peringatan: Mohon pilih nominal Diamond terlebih dahulu.');
+                return; 
+            }
+            if (!selectedPaymentElement) {
+                alert('Peringatan: Mohon pilih metode pembayaran terlebih dahulu.');
+                return;
+            }
+            if (userId === '' || contact === '') {
+                alert('Peringatan: Mohon lengkapi ID Akun dan Nomor WhatsApp.');
+                return; 
+            }
+
+            // --- DATA PESANAN UNTUK REDIRECT ---
+            const selectedMethodLabel = selectedPaymentElement.getAttribute('data-label');
+            const selectedMethodData = selectedPaymentElement.getAttribute('data-method');
+            
+            if (!selectedMethodData) {
+                 alert('Kesalahan Internal: Metode pembayaran tidak memiliki data pengalihan.');
+                 return;
+            }
+
+            const orderData = {
+                orderId: 'FL' + Date.now(), 
+                userId: userId,
+                contact: contact,
+                diamond: selectedNominalDM,
+                price: selectedNominalPrice,
+                method: selectedMethodLabel,
+                status: 'Menunggu Pembayaran'
+            };
+            
+            // Simpan Data ke Local Storage (Penting untuk Halaman Pembayaran)
+            try {
+                localStorage.setItem('currentOrder', JSON.stringify(orderData));
+            } catch (error) {
+                console.error("Gagal menyimpan data ke LocalStorage:", error);
+                alert("Kesalahan Fatal: Gagal menyimpan data pesanan. Coba lagi.");
+                return; 
+            }
+
+            // --- LOGIKA REDIRECT SPESIFIK ---
+            let redirectFile = ''; 
+
+            switch(selectedMethodData) {
+                case 'dana':
+                    redirectFile = 'dana-payment.html';
+                    break;
+                case 'ovo':
+                    redirectFile = 'ovo-payment.html';
+                    break;
+                case 'gopay':
+                    redirectFile = 'gopay-payment.html';
+                    break;
+                case 'qris':
+                    redirectFile = 'qr-payment.html';
+                    break;
+                case 'seabank':
+                    redirectFile = 'seabank-payment.html';
+                    break;
+                default:
+                    console.error("Metode tidak dikenali:", selectedMethodData);
+                    alert("Kesalahan: Metode pembayaran tidak valid.");
+                    return;
+            }
+            
+            // LAKUKAN PENGALIHAN (REDIRECT)
+            window.location.href = redirectFile;
+        });
+    </script>
+</body>
+</html>
