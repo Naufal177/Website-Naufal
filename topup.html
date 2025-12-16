@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -255,6 +254,10 @@
             transition: transform 0.3s, box-shadow 0.3s;
             cursor: pointer;
             animation: fadeUp 0.6s ease-out both;
+            /* Tambahkan styling untuk tag <a> */
+            display: flex;
+            flex-direction: column;
+            text-decoration: none; /* Hilangkan garis bawah dari tag <a> */
         }
         
         .game-card:hover { 
@@ -283,7 +286,11 @@
         }
         
         /* --- Detail Card --- */
-        .game-card-details { padding: 10px; background-color: var(--card-dark); }
+        .game-card-details { 
+            padding: 10px; 
+            background-color: var(--card-dark); 
+            flex-grow: 1; /* Penting agar detail mengisi ruang di tag <a> */
+        }
         .game-title-bar h3 {
             color: var(--text-white);
             font-size: 0.9rem;
@@ -429,7 +436,7 @@
             
             <div class="game-grid-6-col">
                 
-                <div class="game-card">
+                <a href="ml-topup.html" class="game-card">
                     <div class="image-container">
                         <img src="ml.jpg" alt="Mobile Legends Banner">
                     </div> 
@@ -437,9 +444,9 @@
                         <div class="game-title-bar"><h3>Mobile Legends</h3></div>
                         <p class="game-subtitle">Moonton</p>
                     </div>
-                </div>
+                </a>
                  
-                 <div class="game-card">
+                 <a href="#pubg" class="game-card">
                     <div class="image-container">
                         <img src="pubg.png" alt="PUBG Mobile Banner">
                     </div>
@@ -447,9 +454,9 @@
                         <div class="game-title-bar"><h3>PUBG Mobile</h3></div>
                         <p class="game-subtitle">Tencent</p>
                     </div>
-                </div>
+                </a>
                  
-                 <div class="game-card">
+                 <a href="#genshin" class="game-card">
                     <div class="image-container">
                         <img src="genshin.png" alt="Genshin Impact Banner">
                     </div>
@@ -457,9 +464,9 @@
                         <div class="game-title-bar"><h3>Genshin Impact</h3></div>
                         <p class="game-subtitle">Hoyoverse</p>
                     </div>
-                </div>
+                </a>
                 
-                <div class="game-card">
+                <a href="#freefire" class="game-card">
                     <div class="image-container">
                         <img src="freefire.png" alt="Free Fire Banner">
                     </div>
@@ -467,9 +474,9 @@
                         <div class="game-title-bar"><h3>Free Fire</h3></div>
                         <p class="game-subtitle">Garena</p>
                     </div>
-                </div>
+                </a>
                  
-                 <div class="game-card">
+                 <a href="#valorant" class="game-card">
                     <div class="image-container">
                         <img src="valorant.png" alt="Valorant Banner">
                     </div>
@@ -477,9 +484,9 @@
                         <div class="game-title-bar"><h3>Valorant</h3></div>
                         <p class="game-subtitle">Riot Games</p>
                     </div>
-                </div>
+                </a>
                 
-                <div class="game-card">
+                <a href="#cod" class="game-card">
                     <div class="image-container">
                         <img src="callofduty.png" alt="Call of Duty Mobile Banner">
                     </div>
@@ -487,14 +494,19 @@
                         <div class="game-title-bar"><h3>Call of Duty</h3></div>
                         <p class="game-subtitle">Activision</p>
                     </div>
-                </div>
+                </a>
 
-                <div class="game-card"><div class="image-container"><img src="domino.png" alt="Higgs Domino Banner"></div><div class="game-card-details"><div class="game-title-bar"><h3>Higgs Domino</h3></div><p class="game-subtitle">Top Up Chip</p></div></div>
-                <div class="game-card"><div class="image-container"><img src="roblox.png" alt="Roblox"></div><div class="game-card-details"><div class="game-title-bar"><h3>Roblox</h3></div><p class="game-subtitle">Roblox Corporation</p></div></div>
-                <div class="game-card"><div class="image-container"><img src="coc.png" alt="Clash of Clans"></div><div class="game-card-details"><div class="game-title-bar"><h3>Clash of Clans</h3></div><p class="game-subtitle">Supercell</p></div></div>
-                <div class="game-card"><div class="image-container"><img src="steam.png" alt="Steam"></div><div class="game-card-details"><div class="game-title-bar"><h3>Steam Wallet</h3></div><p class="game-subtitle">Voucher</p></div></div>
-                <div class="game-card"><div class="image-container"><img src="hok.jpg" alt="Honor of Kings"></div><div class="game-card-details"><div class="game-title-bar"><h3>Honor of Kings</h3></div><p class="game-subtitle">Level Infinite</p></div></div>
-                <div class="game-card"><div class="image-container"><img src="aov.png" alt="Arena of Valor Banner"></div><div class="game-card-details"><div class="game-title-bar"><h3>Arena of Valor</h3></div><p class="game-subtitle">Garena</p></div></div>
+                <a href="#domino" class="game-card"><div class="image-container"><img src="domino.png" alt="Higgs Domino Banner"></div><div class="game-card-details"><div class="game-title-bar"><h3>Higgs Domino</h3></div><p class="game-subtitle">Top Up Chip</p></div></a>
+                
+                <a href="#roblox" class="game-card"><div class="image-container"><img src="roblox.png" alt="Roblox"></div><div class="game-card-details"><div class="game-title-bar"><h3>Roblox</h3></div><p class="game-subtitle">Roblox Corporation</p></div></a>
+                
+                <a href="#coc" class="game-card"><div class="image-container"><img src="coc.png" alt="Clash of Clans"></div><div class="game-card-details"><div class="game-title-bar"><h3>Clash of Clans</h3></div><p class="game-subtitle">Supercell</p></div></a>
+                
+                <a href="#steam" class="game-card"><div class="image-container"><img src="steam.png" alt="Steam"></div><div class="game-card-details"><div class="game-title-bar"><h3>Steam Wallet</h3></div><p class="game-subtitle">Voucher</p></div></a>
+                
+                <a href="#hok" class="game-card"><div class="image-container"><img src="hok.jpg" alt="Honor of Kings"></div><div class="game-card-details"><div class="game-title-bar"><h3>Honor of Kings</h3></div><p class="game-subtitle">Level Infinite</p></div></a>
+                
+                <a href="#aov" class="game-card"><div class="image-container"><img src="aov.png" alt="Arena of Valor Banner"></div><div class="game-card-details"><div class="game-title-bar"><h3>Arena of Valor</h3></div><p class="game-subtitle">Garena</p></div></a>
             </div>
         </div>
     </section>
@@ -582,3 +594,4 @@
     </script>
 </body>
 </html>
+
